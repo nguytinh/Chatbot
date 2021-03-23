@@ -45,7 +45,7 @@ public class Bot extends JFrame implements KeyListener{
 		{"what is your favorite team?", "what is your favorite team", "What team do you like?", "what team do you like", "What team do you like the most?", "what team do you like the most"},
 		{"I do not have a preference on team","I don't really have a favorite team"},
 		//Basketball players
-		{"stephen curry", "lebron james", "michael jordan", "kobe bryant", "larry bird", "shaq", "kevin durant", "james harden", "giannis antetokounmpo", "kawhi leonard", "anthony davis", "Luka Doncic", "jimmy butler", "damian lillard"},
+		{"stephen curry", "lebron james", "michael jordan", "larry bird", "shaq", "kevin durant", "james harden", "giannis antetokounmpo", "kawhi leonard", "anthony davis", "Luka Doncic", "jimmy butler", "damian lillard"},
 		{"He is an insane basketball player","He's a terrible player", "I agree he is very underated!", "I like him too!"},
 		//Questions for the user
 		{"ok", "ok!", "nice", "nice!", "cool", "cool!", "ask me a question"},
@@ -138,8 +138,25 @@ public class Bot extends JFrame implements KeyListener{
 			
 			//if the input doesn't match the ones in the array, default values are printed
 			if(output==1){
-				int r=(int)Math.floor(Math.random()*chat[chat.length-1].length);
-				addText("\n-->Michael\t"+chat[chat.length-1][r]);
+				if(quote.contains("team")) {
+					addText("\n-->Joe\t"+ "I don't have a preference on team.");
+				}
+				else if(quote.contains("kobe") || quote.contains("Kobe")) {
+					addText("\n-->Joe\t"+ "Yes, Rest in Peace!");
+				}
+				else if(quote.contains("hate") && quote.contains("Jordan")) {
+					addText("\n-->Joe\t"+ "HOW DARE YOU!!!!");
+				}
+				else if(quote.contains("soccer")) {
+					addText("\n-->Joe\t"+ "I don't care about that sport.");
+				}
+				else if(quote.contains("football")) {
+					addText("\n-->Joe\t"+ "I don't care about that sport.");
+				}
+				else {
+					int r=(int)Math.floor(Math.random()*chat[chat.length-1].length);
+					addText("\n-->Joe\t"+chat[chat.length-1][r]);
+				}
 			}
 			addText("\n");
 		}
