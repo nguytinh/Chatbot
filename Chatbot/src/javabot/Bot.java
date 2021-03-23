@@ -75,10 +75,32 @@ public class Bot extends JFrame implements KeyListener{
 	
 		p.add(scroll);
 		p.add(input);
-		p.setBackground(new Color(255,200,0));
+		p.setBackground(new Color(170,0,200));
 		add(p);
 		
 		setVisible(true);
+	}
+	//makes the text in the textbox editable by the user
+	public void keyReleased(KeyEvent e){
+		if(e.getKeyCode()==KeyEvent.VK_ENTER){
+			input.setEditable(true);
+		}
+	}
+	
+	public void keyTyped(KeyEvent e){}
+	
+	public void addText(String str){
+		dialog.setText(dialog.getText()+str);
+	}
+	//sees if the inputted text matches the text in the array
+	public boolean inArray(String in,String[] str){
+		boolean match=false;
+		for(int i=0;i<str.length;i++){
+			if(str[i].equals(in)){
+				match=true;
+			}
+		}
+		return match;
 	}
 	
 	//essentially what makes the chatbot operate
@@ -92,14 +114,7 @@ public class Bot extends JFrame implements KeyListener{
 			input.setText("");
 			addText("-->You:\t"+quote);
 			quote.trim();
-			while(
-				quote.charAt(quote.length()-1)=='!' ||
-				quote.charAt(quote.length()-1)=='.' ||
-				quote.charAt(quote.length()-1)=='?'
-			){
-				quote=quote.substring(0,quote.length()-1);
-			}
-			quote.trim();
+			
 			byte response=0;
 		
 			int j=0;//which group we're checking
@@ -124,25 +139,4 @@ public class Bot extends JFrame implements KeyListener{
 		}
 	}
 	
-	public void keyReleased(KeyEvent e){
-		if(e.getKeyCode()==KeyEvent.VK_ENTER){
-			input.setEditable(true);
-		}
-	}
-	
-	public void keyTyped(KeyEvent e){}
-	
-	public void addText(String str){
-		dialog.setText(dialog.getText()+str);
-	}
-	
-	public boolean inArray(String in,String[] str){
-		boolean match=false;
-		for(int i=0;i<str.length;i++){
-			if(str[i].equals(in)){
-				match=true;
-			}
-		}
-		return match;
-	}
 }
