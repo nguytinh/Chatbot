@@ -25,11 +25,11 @@ public class Bot extends JFrame implements KeyListener{
 	
 	//I setup this dual array of strings to make it easy to create input and outputs for the
 	//Chat bot
-	String[][] chatBot={
-		//standard greetings
+	String[][] chat={
+		//greetings
 		{"hi","hello","hola","good morning", "good afternoon", "howdy"},
 		{"hi","hello","hey", "sup..."},
-		//question greetings
+		//more greetings
 		{"how are you?","how r you?","how r u?","how are u?", "how are you doing?", "how are you","how r you","how r u","how are u", "how are you doing"},
 		{"good","I'm doing well"},
 		//Name
@@ -50,6 +50,9 @@ public class Bot extends JFrame implements KeyListener{
 		//Questions for the user
 		{"ok", "ok!", "nice", "nice!", "cool", "cool!", "ask me a question"},
 		{"Do you like basketball?","Do you like Michael Jordan?", "Who is your favorite player?"},
+		//bye
+		{"bye", "adios", "bye!", "see you later", "see you later!", "see ya!", "see ya"},
+		{"See Ya!"},
 		//yes
 		{"yes"},
 		{"Ok, Cool!","Sure!","whatever"},
@@ -66,7 +69,7 @@ public class Bot extends JFrame implements KeyListener{
 	
 	//generates the world and GUI of the chatbot
 	public Bot(){
-		super("ChatBot");
+		super("Basketball ChatBot");
 		setSize(600,400);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,16 +79,27 @@ public class Bot extends JFrame implements KeyListener{
 	
 		p.add(scroll);
 		p.add(input);
-		p.setBackground(new Color(170,0,200));
+		p.setBackground(new Color(170,0,250));
 		add(p);
 		
 		setVisible(true);
 	}
-	//makes the text in the textbox editable by the user
+	// makes the text editable in the textbox
 	public void keyReleased(KeyEvent e){
 		if(e.getKeyCode()==KeyEvent.VK_ENTER){
 			input.setEditable(true);
 		}
+	}
+	
+	//finds match of input with the inputs in the array
+	public boolean inArray(String in,String[] str){
+		boolean m=false;
+		for(int i=0;i<str.length;i++){
+			if(str[i].equals(in)){
+				m=true;
+			}
+		}
+			return m;
 	}
 	
 	public void keyTyped(KeyEvent e){}
@@ -93,16 +107,7 @@ public class Bot extends JFrame implements KeyListener{
 	public void addText(String str){
 		dialog.setText(dialog.getText()+str);
 	}
-	//sees if the inputted text matches the text in the array
-	public boolean inArray(String in,String[] str){
-		boolean match=false;
-		for(int i=0;i<str.length;i++){
-			if(str[i].equals(in)){
-				match=true;
-			}
-		}
-		return match;
-	}
+	
 	
 	//essentially what makes the chatbot operate
 	//displays your inputs and the responses of the bot
@@ -115,29 +120,30 @@ public class Bot extends JFrame implements KeyListener{
 			input.setText("");
 			addText("-->You:\t"+quote);
 			quote.trim();
+			byte output=0;
 			
-			byte response=0;
-		
 			int j=0;//which group we're checking
-			while(response==0){
-				if(inArray(quote.toLowerCase(),chatBot[j*2])){
-					response=2;
-					int r=(int)Math.floor(Math.random()*chatBot[(j*2)+1].length);
-					addText("\n-->Joe\t"+chatBot[(j*2)+1][r]);
+			//algorithm used to randomly select the outputs of the chatbot
+			while(output==0){
+				if(inArray(quote.toLowerCase(),chat[j*2])){
+					output=2;
+					int r=(int)Math.floor(Math.random()*chat[(j*2)+1].length);
+					addText("\n-->Joe\t"+chat[(j*2)+1][r]);
 				}
 				j++;
-				if(j*2==chatBot.length-1 && response==0){
-					response=1;
+				if(j*2==chat.length-1 && output==0){
+					output=1;
 				}
 			}
 			
-			//-----default--------------
-			if(response==1){
-				int r=(int)Math.floor(Math.random()*chatBot[chatBot.length-1].length);
-				addText("\n-->Michael\t"+chatBot[chatBot.length-1][r]);
+			//if the input doesn't match the ones in the array, default values are printed
+			if(output==1){
+				int r=(int)Math.floor(Math.random()*chat[chat.length-1].length);
+				addText("\n-->Michael\t"+chat[chat.length-1][r]);
 			}
 			addText("\n");
 		}
 	}
+	
 	
 }
